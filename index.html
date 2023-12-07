@@ -6,7 +6,10 @@
   </head>
   <body>
     <h1>猜數字遊戲</h1>
-    <p>1 到 100 之間的數字，你猜是多少？</p>
+    <p class="question">
+      <span class="lowerLimit"> 1</span> 到<span class="upperLimit">100</span>
+      之間的數字，你猜是多少？
+    </p>
     <input type="text" id="guessField" />
     <input type="submit" value="猜!" id="guessSubmit" />
     <input type="submit" value="揭曉答案" id="guessOver" />
@@ -24,6 +27,9 @@
     const message = document.querySelector(".message");
     const guessOver = document.getElementById("guessOver");
     const guessAgain = document.getElementById("guessAgain");
+    let lowerLimit = document.querySelector(".lowerLimit");
+    let upperLimit = document.querySelector(".upperLimit");
+    let question = document.querySelector(".question");
 
     //次數
     let guessTimes = 0;
@@ -44,6 +50,7 @@
         message.style.color = "red";
         guessSubmit.disabled = true;
         setTimeout(playAgain, 5000);
+        question.textContent = "1 到 100 之間的數字，你猜是多少？";
         guessAgain.disabled = true;
       } else if (userGuess === targetNumber) {
         message.textContent = `恭喜你，你猜對了！你這次猜了 ${guessTimes} 次哦～`;
@@ -52,8 +59,13 @@
       } else if (userGuess < targetNumber) {
         message.textContent = "太小了，再試一次。";
         message.style.color = "red";
-      } else {
+        lowerLimit.textContent = `${userGuess} `;
+      } else if (userGuess > targetNumber) {
         message.textContent = "太大了，再試一次。";
+        message.style.color = "red";
+        upperLimit.textContent = ` ${userGuess} `;
+      } else {
+        message.textContent = "不是吧，再試一次。";
         message.style.color = "red";
       }
 
@@ -74,6 +86,7 @@
       targetNumber = targetNumber * 0 + Math.floor(Math.random() * 100) + 1;
       guessTimes = 0;
       guessAgain.disabled = false;
+      question.textContent = "1 到 100 之間的數字，你猜是多少？";
     }
   </script>
 </html>
