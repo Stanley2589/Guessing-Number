@@ -15,6 +15,7 @@
     <input type="submit" value="揭曉答案" id="guessOver" />
     <input type="submit" value="再玩一次" id="guessAgain" />
     <p class="message"></p>
+    <p class="second"></p>
   </body>
   <script>
     // Random number
@@ -30,6 +31,7 @@
     let lowerLimit = document.querySelector(".lowerLimit");
     let upperLimit = document.querySelector(".upperLimit");
     let question = document.querySelector(".question");
+    const second = document.querySelector(".second");
 
     //次數
     let guessTimes = 0;
@@ -49,9 +51,14 @@
         message.textContent = `You Fail!答案是 ${targetNumber} `;
         message.style.color = "red";
         guessSubmit.disabled = true;
-        setTimeout(playAgain, 5000);
+        
         question.textContent = "1 到 100 之間的數字，你猜是多少？";
         guessAgain.disabled = true;
+        delayedDisplay("5", 5000, playAgain);
+        delayedDisplay("4", 4000, playAgain);
+        delayedDisplay("3", 3000, playAgain);
+        delayedDisplay("2", 2000, playAgain);
+        delayedDisplay("1", 1000, playAgain);
       } else if (userGuess === targetNumber) {
         message.textContent = `恭喜你，你猜對了！你這次猜了 ${guessTimes} 次哦～`;
         message.style.color = "green";
@@ -87,6 +94,12 @@
       guessTimes = 0;
       guessAgain.disabled = false;
       question.textContent = "1 到 100 之間的數字，你猜是多少？";
+    }
+
+    //倒數計時顯示function
+    function delayedDisplay(string, ms, callback) {
+      second.textContent = `${string}`;
+      setInterval(callback, ms);
     }
   </script>
 </html>
